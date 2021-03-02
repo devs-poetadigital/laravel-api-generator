@@ -1,0 +1,59 @@
+{
+    "name": "devs-poetadigital/laravel-api-generator",
+    "type": "library",
+    "description": "code generator",
+    "keywords": [
+        "php",
+        "laravel",
+        "API"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/devs-poetadigital/laravel-api-generator",
+    "support": {
+        "issues": "https://github.com/devs-poetadigital/laravel-api-generator/issues",
+        "source": "https://github.com/devs-poetadigital/laravel-api-generator"
+    },
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "laravel/framework": "^8.0 || ^7.0",
+        "zircote/swagger-php": "3.*",
+        "swagger-api/swagger-ui": "^3.0",
+        "symfony/yaml": "^5.0",
+        "spatie/data-transfer-object": "^2.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "1.*",
+        "orchestra/testbench": "6.* || 5.*",
+        "php-coveralls/php-coveralls": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodeGenerator\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "scripts": {
+        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "test": "vendor/bin/phpunit"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodeGenerator\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CodeGenerator\\CodeGeneratorServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

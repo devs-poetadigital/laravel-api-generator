@@ -4,9 +4,8 @@ namespace App\Dto\ApiDto;
 use App\Dto\ModelDto\UserDto;
 use App\Models\User;
 
-class CreateUserResponseDto extends UserDto
+class UpdateUserResponseDto extends UserDto
 {
-    public $hihi;
     public static function fromEntity(User $entity = null): ?self
     {
         if(is_null($entity)) return null;
@@ -19,9 +18,9 @@ class CreateUserResponseDto extends UserDto
 
 /**
  * @OA\Schema(
- *     schema="CreateUserApiResponse",
+ *     schema="UpdateUserApiResponse",
  *     type="object",
- *     title="CreateUserApiResponse",
+ *     title="UpdateUserApiResponse",
  *     properties={
  *         @OA\Property(property="success", type="string"),
  *         @OA\Property(property="code", type="integer"),
@@ -31,13 +30,12 @@ class CreateUserResponseDto extends UserDto
  *              property="data", 
  *              type="object", 
  *              properties = {
- *                  @OA\Property(property="hihi", type="string"),
  *                  @OA\Property(property="id", type="string"),
  *                  @OA\Property(property="name", type="string"),
  *                  @OA\Property(property="email", type="string"),
  *                  @OA\Property(property="password", type="string"),
  *                  @OA\Property(property="created_at", type="string"),
- *                  @OA\Property(property="updated_at", type="string"),
+ *                  @OA\Property(property="updated_at", type="string")
  *              }
  *         ),
  *     }

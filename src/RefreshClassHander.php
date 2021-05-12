@@ -1,7 +1,6 @@
 <?php
 
 namespace CodeGenerator;
-
 use ReflectionClass;
 
 class RefreshClassHander extends GenerateApiHandler
@@ -17,9 +16,7 @@ class RefreshClassHander extends GenerateApiHandler
             if(str_contains($path, $this->modelName))
             {
                 $this->filePath = $path;
-                $pathInfos = pathinfo($path);
-                $className = str_replace("/","\\", ucfirst($pathInfos['dirname']."/".$pathInfos['filename']));
-                $this->refreshClass($className);
+                $this->refreshClass($this->detectClass());
                 return;
             }
         }
@@ -31,8 +28,11 @@ class RefreshClassHander extends GenerateApiHandler
         $properties = $class->getProperties();
         $content = fileGetContents($this->filePath);
         $strProperties = "";
-        $separater = "properties = {\n";
-        $swaggerContents = explode($separater,$content);
+        $separaterTop = "properties = {\n";
+        $separaterBottom = "}\n";
+        $swaggerContents = explode($separaterTop,$content);
+        $strBottoms = explode($separaterBottom,$swaggerContents[1]);
+        array_shift($strBottoms);
         foreach($properties as $property){
             $propertyType = $property->getType();
             $propertyName = $property->getName();
@@ -50,9 +50,25 @@ class RefreshClassHander extends GenerateApiHandler
                 $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"string\"),\n";
             }
         }
-        $strProperties = $strProperties." *              }\n *         ),\n *     }\n * )\n */";
+        $strProperties = $strProperties." *              }\n".join("}\n",$strBottoms);
+        
         $swaggerContents[1] = $strProperties;
-        $content = join($separater,$swaggerContents);
+        $content = join($separaterTop,$swaggerContents);
         filePutContents($this->filePath, $content); 
+    }
+
+    private function detectClass(){
+        $pathInfos = pathinfo($this->filePath);
+        $parentClass = $pathInfos['filename'];
+        $className = str_replace("/","\\", ucfirst($pathInfos['dirname']."/".$parentClass));
+        
+        $content = fileGetContents($this->filePath);
+        $classResponseItem = str_replace("Dto","Item", $parentClass);
+        
+        if(str_contains($content,$classResponseItem))
+        {
+            $className = str_replace("/","\\", ucfirst($pathInfos['dirname']."/".$classResponseItem));
+        }
+        return $className;
     }
 }

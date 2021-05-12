@@ -47,9 +47,10 @@ class GenerateDtoHandler extends GenerateApiHandler
             $responseTemplate = "SearchResponseDtoTemplate";
 
             $searchResultTemplate = "SearchResultDtoTemplate";
-            $searchCriteriaTemplate = "SearchCriteriaDtoTemplate";
             $content = $blade->make($searchResultTemplate, $model->toArray())->render();
             $this->exportFile($content,$this->pathApiDto.'SearchResultDto.php');
+
+            $searchCriteriaTemplate = "SearchCriteriaDtoTemplate";
             $content = $blade->make($searchCriteriaTemplate, $model->toArray())->render();
             $this->exportFile($content,$this->pathApiDto.'SearchCriteriaDto.php');
         }
@@ -73,6 +74,29 @@ class GenerateDtoHandler extends GenerateApiHandler
         {
             $content = $blade->make($responseTemplate, $model->toArray())->render();
             $this->exportFile($content,$this->pathApiDto.$responseDtoName.'.php');
+        }
+        if($action == 'Search')
+        {
+            $override = true;
+            $responseItemName = $model->action_name.$model->model_name.'Response'.'Item';
+            if(fileExists($this->pathApiDto.$responseItemName.'.php')){
+                $override = $this->command->confirm("$responseItemName has existed! Do you wish to override?");
+            }
+            if($override)
+            {
+                $content = $blade->make("SearchResponseItemTemplate", $model->toArray())->render();
+                $this->exportFile($content,$this->pathApiDto.$responseItemName.'.php');
+            }
+            $override = true;
+            $responseCollectionName = $model->action_name.$model->model_name.'Response'.'Collection';
+            if(fileExists($this->pathApiDto.$responseCollectionName.'.php')){
+                $override = $this->command->confirm("$responseCollectionName has existed! Do you wish to override?");
+            }
+            if($override)
+            {
+                $content = $blade->make("SearchResponseCollectionTemplate", $model->toArray())->render();
+                $this->exportFile($content,$this->pathApiDto.$responseCollectionName.'.php');
+            }
         }
     }
 }

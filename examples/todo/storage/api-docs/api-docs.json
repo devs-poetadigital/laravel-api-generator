@@ -78,6 +78,43 @@
                     }
                 ]
             }
+        },
+        "/api/user/update": {
+            "post": {
+                "tags": [
+                    "---------- User ----------"
+                ],
+                "summary": "Update User",
+                "operationId": "update/user",
+                "requestBody": {
+                    "description": "Update User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserApiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update User response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateUserApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -114,6 +151,9 @@
                     },
                     "data": {
                         "properties": {
+                            "hihi": {
+                                "type": "string"
+                            },
                             "id": {
                                 "type": "string"
                             },
@@ -169,7 +209,89 @@
                         "type": "string"
                     },
                     "data": {
-                        "properties": {},
+                        "$ref": "#/components/schemas/SearchUserResponseItem"
+                    }
+                },
+                "type": "object"
+            },
+            "SearchUserResponseItem": {
+                "title": "SearchUserResponseItem",
+                "properties": {
+                    "owner": {
+                        "$ref": "#/components/schemas/UserDto"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserApiRequest": {
+                "title": "UpdateUserApiRequest",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUserApiResponse": {
+                "title": "UpdateUserApiResponse",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "integer"
+                    },
+                    "locale": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "type": "string"
+                            }
+                        },
                         "type": "object"
                     }
                 },

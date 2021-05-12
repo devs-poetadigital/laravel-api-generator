@@ -41,6 +41,43 @@
                     }
                 ]
             }
+        },
+        "/api/user/search": {
+            "post": {
+                "tags": [
+                    "---------- User ----------"
+                ],
+                "summary": "Search User",
+                "operationId": "search/user",
+                "requestBody": {
+                    "description": "Search User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SearchUserApiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Search User response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchUserApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -96,6 +133,43 @@
                                 "type": "string"
                             }
                         },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "SearchUserApiRequest": {
+                "title": "SearchUserApiRequest",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SearchUserApiResponse": {
+                "title": "SearchUserApiResponse",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "integer"
+                    },
+                    "locale": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "properties": {},
                         "type": "object"
                     }
                 },

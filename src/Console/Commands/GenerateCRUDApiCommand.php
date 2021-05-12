@@ -15,7 +15,7 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
      *
      * @var string
      */
-    protected $signature = 'api:cruds {model_name?} {--o|only=}';
+    protected $signature = 'api:cruds {model_name?} {action_name?} {--o|only=}';
 
     /**
      * The console command description.
@@ -66,6 +66,7 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
     private function getInputActions(){
         $strActions = strtolower($this->option('only'));
         $listInputAction = [];
+        
         if(str_contains($strActions,'c'))
         {
             $listInputAction[] = 'Create';
@@ -85,6 +86,11 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
         if(str_contains($strActions,'s'))
         {
             $listInputAction[] = 'Search';
+        }
+        $actionName = $this->getAction();
+        if(!empty($actionName))
+        {
+            $listInputAction[] = $actionName;
         }
         return $listInputAction;
     }

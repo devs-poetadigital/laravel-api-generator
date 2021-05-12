@@ -22,7 +22,7 @@ class {{ $model_name }}Dto extends FlexibleDataTransferObject
  *     schema="{{ $model_name }}Dto",
  *     type="object",
  *     title="{{ $model_name }}Dto",
- *     properties={
+ *     properties = {
  *         @OA\Property(property="id", type="string"),
 @foreach ($fillable as $field)
  *         @OA\Property(property="{{ $field }}", type="string"),

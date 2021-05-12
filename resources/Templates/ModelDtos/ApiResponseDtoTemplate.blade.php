@@ -25,7 +25,18 @@ class {{ $action_name }}{{ $model_name }}ResponseDto extends {{ $model_name }}Dt
  *         @OA\Property(property="code", type="integer"),
  *         @OA\Property(property="locale", type="string"),
  *         @OA\Property(property="message", type="string"),
- *         @OA\Property(property="data", type="object", ref="#/components/schemas/{{ $model_name }}Dto"),
+ *         @OA\Property(
+ *              property="data", 
+ *              type="object", 
+ *              properties = {
+ *                  @OA\Property(property="id", type="string"),
+@foreach ($fillable as $field)
+ *                  @OA\Property(property="{{ $field }}", type="string"),
+@endforeach
+ *                  @OA\Property(property="created_at", type="string"),
+ *                  @OA\Property(property="updated_at", type="string")
+ *              }
+ *         ),
  *     }
  * )
  */

@@ -11,7 +11,7 @@ class RefreshClassCommand extends GenerateApiCommand
      *
      * @var string
      */
-    protected $signature = 'api:refresh {model_name}';
+    protected $signature = 'api:swagger {model_name}';
 
     /**
      * The console command description.

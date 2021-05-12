@@ -35,7 +35,6 @@ function deleteDirectory($dir) {
         if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
             return false;
         }
-
     }
 
     return rmdir($dir);
@@ -65,31 +64,4 @@ function fileGetContents($filePath)
 {
     correctPath($filePath);
     return file_get_contents($filePath);
-}
-
-function createPath($path) {
-    correctPath($path);
-    if (!file_exists($path)) {
-        mkdir($path, 0777, true);
-    }
-}
-
-function exportFile($content, $filePath) {
-    file_put_contents($filePath, '<?php'.PHP_EOL);
-    file_put_contents($filePath,  $content, FILE_APPEND);
-}
-
-function deleteAllFiles($path) {
-    correctPath($path);
-    $files = getAllFileNames($path);
-    foreach($files as $file){
-        if(is_file($file)) {
-            unlink($file);
-        }
-    }
-}
-
-function getAllFileNames($path) {
-    $files = glob($path.'/*');
-    return $files;
 }

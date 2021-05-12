@@ -1,5 +1,5 @@
 {
-    "name": "devs-poetadigital/laravel-api-generator",
+    "name": "nmkhanhit/codegenerator",
     "type": "library",
     "description": "code generator",
     "keywords": [
@@ -8,10 +8,10 @@
         "API"
     ],
     "license": "MIT",
-    "homepage": "https://github.com/devs-poetadigital/laravel-api-generator",
+    "homepage": "https://github.com/nmkhanhit/codegenerator",
     "support": {
-        "issues": "https://github.com/devs-poetadigital/laravel-api-generator/issues",
-        "source": "https://github.com/devs-poetadigital/laravel-api-generator"
+        "issues": "https://github.com/nmkhanhit/codegenerator/issues",
+        "source": "https://github.com/nmkhanhit/codegenerator"
     },
     "require": {
         "php": "^7.2 || ^8.0",

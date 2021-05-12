@@ -15,14 +15,14 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
      *
      * @var string
      */
-    protected $signature = 'api:cruds {model_name?}';
+    protected $signature = 'api:cruds {model_name?} {--o|only=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Eg: api:cruds User --o|only=cru (use only option for limit action to generate code)';
 
     /**
      * Create a new command instance.
@@ -42,9 +42,16 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
     public function handle()
     {
         $models = $this->getModels();
-        $actions = array_diff($this->supportActions, array("Custom"));
+        $listInputAction = $this->getInputActions();
+        $actions = $this->supportActions;
+        if(count($listInputAction) > 0)
+        {
+            $actions = $listInputAction;
+        }
+        $actions = array_diff($actions, array("Custom"));
         foreach ($models as $model)
         {
+            $this->modelName = $model;
             foreach ($actions as $action)
             {
                 (new GenerateDtoHandler($this, $action))->handle();
@@ -54,5 +61,31 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
             }
         }
         parent::handle();
+    }
+
+    private function getInputActions(){
+        $strActions = strtolower($this->option('only'));
+        $listInputAction = [];
+        if(str_contains($strActions,'c'))
+        {
+            $listInputAction[] = 'Create';
+        }
+        if(str_contains($strActions,'u'))
+        {
+            $listInputAction[] = 'Update';
+        }
+        if(str_contains($strActions,'r'))
+        {
+            $listInputAction[] = 'Read';
+        }
+        if(str_contains($strActions,'d'))
+        {
+            $listInputAction[] = 'Delete';
+        }
+        if(str_contains($strActions,'s'))
+        {
+            $listInputAction[] = 'Search';
+        }
+        return $listInputAction;
     }
 }

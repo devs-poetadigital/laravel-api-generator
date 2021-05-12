@@ -17,7 +17,7 @@ class GenerateApiCommand extends Command
 
     public function getModels()
     {
-        $this->modelName = ucfirst($this->argument('model_name'));
+        $modelName = ucfirst($this->argument('model_name'));
         $dir = "app/Models/"; 
         correctPath($dir);
         $filePaths = glob($dir.'*.php');
@@ -25,13 +25,13 @@ class GenerateApiCommand extends Command
         {
             $files[] = basename($filePath, ".php");
         }
-        if(!is_null($this->modelName))
+        if(!empty($modelName))
         {
-            if (!in_array($this->modelName, $files)) {
+            if (!in_array($modelName, $files)) {
                 $models = implode('|',$files);
-                $this->modelName = $this->anticipate("Wrong model name! What is your model? ($models)", $files);
+                $modelName = $this->anticipate("Wrong model name! What is your model? ($models)", $files);
             }
-            $files = [$this->modelName];
+            $files = [$modelName];
         }
         return $files;
     }

@@ -9,7 +9,7 @@ use CodeGenerator\Console\Commands\GenerateCRUDApiCommand;
 use CodeGenerator\Console\Commands\GenerateServiceCommand;
 use CodeGenerator\Console\Commands\GenerateCreateApiCommand;
 use CodeGenerator\Console\Commands\GenerateControllerCommand;
-
+use CodeGenerator\Console\Commands\RefreshClassCommand;
 
 class CodeGeneratorServiceProvider extends ServiceProvider
 {
@@ -31,6 +31,7 @@ class CodeGeneratorServiceProvider extends ServiceProvider
         $this->app->bind('command.api:dto', GenerateRouteCommand::class);
         $this->app->bind('command.api:service', GenerateServiceCommand::class);
         $this->app->bind('command.api:route', GenerateCRUDApiCommand::class);
+        $this->app->bind('command.api:refresh', RefreshClassCommand::class);
 
         $this->commands([
             'command.api:cruds',
@@ -39,6 +40,7 @@ class CodeGeneratorServiceProvider extends ServiceProvider
             'command.api:dto',
             'command.api:service',
             'command.api:route',
+            'command.api:refresh'
         ]);
     }
 }

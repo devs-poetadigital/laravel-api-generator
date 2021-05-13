@@ -25,7 +25,7 @@ class {{ $action_name }}{{ $model_name }}ResponseDto extends FlexibleDataTransfe
  *         @OA\Property(property="code", type="integer"),
  *         @OA\Property(property="locale", type="string"),
  *         @OA\Property(property="message", type="string"),
- *         @OA\Property(property="data", type="object", ref="#/components/schemas/{{ $action_name }}{{ $model_name }}ResponseItem"),
+ *         @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/{{ $action_name }}{{ $model_name }}ResponseItem")),
  *     }
  * )
  */

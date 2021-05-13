@@ -4,7 +4,7 @@ namespace App\Dto\ApiDto;
 use App\Dto\ModelDto\UserDto;
 use App\Models\User;
 
-class CreateUserResponseDto extends UserDto
+class GetAllUserResponseDto extends UserDto
 {
     public static function fromEntity(User $entity = null): ?self
     {
@@ -18,9 +18,9 @@ class CreateUserResponseDto extends UserDto
 
 /**
  * @OA\Schema(
- *     schema="CreateUserApiResponse",
+ *     schema="GetAllUserApiResponse",
  *     type="object",
- *     title="CreateUserApiResponse",
+ *     title="GetAllUserApiResponse",
  *     properties={
  *         @OA\Property(property="success", type="string"),
  *         @OA\Property(property="code", type="integer"),

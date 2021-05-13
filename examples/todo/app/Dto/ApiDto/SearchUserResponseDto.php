@@ -21,12 +21,12 @@ class SearchUserResponseDto extends FlexibleDataTransferObject
  *     schema="SearchUserApiResponse",
  *     type="object",
  *     title="SearchUserApiResponse",
- *     properties={
+ *     properties = {
  *         @OA\Property(property="success", type="string"),
  *         @OA\Property(property="code", type="integer"),
  *         @OA\Property(property="locale", type="string"),
  *         @OA\Property(property="message", type="string"),
- *         @OA\Property(property="data", type="object", ref="#/components/schemas/SearchUserResponseItem"),
+ *         @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/SearchUserResponseItem")),
  *     }
  * )
  */

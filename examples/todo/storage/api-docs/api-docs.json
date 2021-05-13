@@ -42,6 +42,43 @@
                 ]
             }
         },
+        "/api/user/getall": {
+            "post": {
+                "tags": [
+                    "---------- User ----------"
+                ],
+                "summary": "GetAll User",
+                "operationId": "getall/user",
+                "requestBody": {
+                    "description": "GetAll User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GetAllUserApiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "GetAll User response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllUserApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/user/search": {
             "post": {
                 "tags": [
@@ -151,9 +188,62 @@
                     },
                     "data": {
                         "properties": {
-                            "hihi": {
+                            "id": {
                                 "type": "string"
                             },
+                            "name": {
+                                "type": "string"
+                            },
+                            "email": {
+                                "type": "string"
+                            },
+                            "password": {
+                                "type": "string"
+                            },
+                            "created_at": {
+                                "type": "string"
+                            },
+                            "updated_at": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "GetAllUserApiRequest": {
+                "title": "GetAllUserApiRequest",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "GetAllUserApiResponse": {
+                "title": "GetAllUserApiResponse",
+                "properties": {
+                    "success": {
+                        "type": "string"
+                    },
+                    "code": {
+                        "type": "integer"
+                    },
+                    "locale": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "properties": {
                             "id": {
                                 "type": "string"
                             },
@@ -209,7 +299,10 @@
                         "type": "string"
                     },
                     "data": {
-                        "$ref": "#/components/schemas/SearchUserResponseItem"
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SearchUserResponseItem"
+                        }
                     }
                 },
                 "type": "object"
@@ -217,9 +310,6 @@
             "SearchUserResponseItem": {
                 "title": "SearchUserResponseItem",
                 "properties": {
-                    "owner": {
-                        "$ref": "#/components/schemas/UserDto"
-                    },
                     "id": {
                         "type": "string"
                     },

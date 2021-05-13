@@ -23,7 +23,7 @@ class UserDto extends FlexibleDataTransferObject
  *     schema="UserDto",
  *     type="object",
  *     title="UserDto",
- *     properties={
+ *     properties = {
  *         @OA\Property(property="id", type="string"),
  *         @OA\Property(property="name", type="string"),
  *         @OA\Property(property="email", type="string"),

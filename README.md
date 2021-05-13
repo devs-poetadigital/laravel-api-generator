@@ -15,12 +15,12 @@ Install this package as a dependency using [Composer](https://getcomposer.org).
 
 ``` bash
 "require": {
-        "nmkhanhit/codegenerator": "dev-master"
+        "devs-poetadigital/laravel-api-generator": "0.0.3"
     },
 "repositories": [
         {
           "type": "vcs",
-          "url": "https://github.com/nmkhanhit/codegenerator"
+          "url": "https://github.com/devs-poetadigital/laravel-api-generator"
         }
     ],
 composer install

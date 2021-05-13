@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d4d8e212141c38342323c292df32b58",
+    "content-hash": "89d07710b99008af56bb9900d7ea2265",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -203,12 +203,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:devs-poetadigital/laravel-api-generator.git",
-                "reference": "df890878c5a82676f0ea1b1bdc7493fa0757613e"
+                "reference": "b7427cbcf271c67f7b7124872c1c97f48d077ae8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/devs-poetadigital/laravel-api-generator/zipball/df890878c5a82676f0ea1b1bdc7493fa0757613e",
-                "reference": "df890878c5a82676f0ea1b1bdc7493fa0757613e",
+                "url": "https://api.github.com/repos/devs-poetadigital/laravel-api-generator/zipball/b7427cbcf271c67f7b7124872c1c97f48d077ae8",
+                "reference": "b7427cbcf271c67f7b7124872c1c97f48d077ae8",
                 "shasum": ""
             },
             "require": {
@@ -269,7 +269,7 @@
                 "issues": "https://github.com/devs-poetadigital/laravel-api-generator/issues",
                 "source": "https://github.com/devs-poetadigital/laravel-api-generator"
             },
-            "time": "2021-05-13T01:55:08+00:00"
+            "time": "2021-05-13T02:58:39+00:00"
         },
         {
             "name": "doctrine/annotations",

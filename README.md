@@ -43,16 +43,14 @@ This terminal will generate api for Create an user, Update an User and api GetAl
 
 Now, you are ready to develop!
 
-## Create an api by model name and action name
-
-After cloning this repository locally, execute the following commands to create an api for model:
+## Refresh Swagger for Model Dto 
 
 ``` bash
-php artisan api:make {{ model_name }} {{ action_name }}
+php artisan api:swagger {{ class_name_dto }} 
 ```
-eg: php artisan api:make Post create
+*class_name_dto* : the class you want to refresh
 
-Now, you are ready to develop!
+eg: php artisan api:swagger CreatePostResponseDto
 
 ## Create a service api by model name and action name
 
@@ -63,10 +61,8 @@ php artisan api:service {{ model_name }} {{ action_name }} {{ --query }}
 ```
 eg: php artisan api:make Post create
 
-Now, you are ready to develop!
-
 ## Copyright and License
 
 The code_generator_php/code_generator library is free and unencumbered software released into the
-public domain. Please see [UNLICENSE](UNLICENSE) for more information.
+public domain. Please see [MIT](MIT) for more information.
 

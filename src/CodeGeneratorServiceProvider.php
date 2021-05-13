@@ -25,22 +25,22 @@ class CodeGeneratorServiceProvider extends ServiceProvider
 
     protected function registerCommands(): void
     {
-        $this->app->bind('command.api:cruds', GenerateCreateApiCommand::class);
+        $this->app->bind('command.api:crud', GenerateCreateApiCommand::class);
         $this->app->bind('command.api:make', GenerateControllerCommand::class);
         $this->app->bind('command.api:controller', GenerateDtoCommand::class);
         $this->app->bind('command.api:dto', GenerateRouteCommand::class);
         $this->app->bind('command.api:service', GenerateServiceCommand::class);
         $this->app->bind('command.api:route', GenerateCRUDApiCommand::class);
-        $this->app->bind('command.api:refresh', RefreshClassCommand::class);
+        $this->app->bind('command.api:swagger', RefreshClassCommand::class);
 
         $this->commands([
-            'command.api:cruds',
+            'command.api:crud',
             'command.api:make',
             'command.api:controller',
             'command.api:dto',
             'command.api:service',
             'command.api:route',
-            'command.api:refresh'
+            'command.api:swagger'
         ]);
     }
 }

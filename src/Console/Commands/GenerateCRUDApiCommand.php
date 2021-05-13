@@ -15,7 +15,7 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
      *
      * @var string
      */
-    protected $signature = 'api:cruds {model_name?} {action_name?} {--o|only=}';
+    protected $signature = 'api:crud {model_name?} {action_name?} {--o|only=}';
 
     /**
      * The console command description.

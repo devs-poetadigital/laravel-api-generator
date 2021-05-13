@@ -31,9 +31,15 @@ composer install
 After cloning this repository locally, execute the following commands to create a CRUD for model:
 
 ``` bash
-php artisan api:cruds {{ model_name }}
+php artisan api:crud {{ model_name }} {{ action_name }} --only={{ your_action }}
 ```
-eg: php artisan api:cruds Post
+*model_name* : the model which you want to generate code
+*action_name*: your custom action you want to generate
+*your_action*: it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
+
+eg: php artisan api:cruds Post GetAll --only=cu
+
+This terminal will generate api for Create an user, Update an User and api GetAll.
 
 Now, you are ready to develop!
 

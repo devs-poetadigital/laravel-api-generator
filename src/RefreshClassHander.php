@@ -10,7 +10,7 @@ class RefreshClassHander extends GenerateApiHandler
     {
         $dir = "app/Dto/"; 
         correctPath($dir);
-        $filePaths = rglob($dir.'*.php');
+        $filePaths = rglob($dir.'/*.php');
         foreach($filePaths as $path)
         {
             if(str_contains($path, $this->modelName))
@@ -31,6 +31,10 @@ class RefreshClassHander extends GenerateApiHandler
         $separaterTop = "properties = {\n";
         $separaterBottom = "}\n";
         $swaggerContents = explode($separaterTop,$content);
+        if (count($swaggerContents) <= 1)
+        {
+            return;
+        }
         $strBottoms = explode($separaterBottom,$swaggerContents[1]);
         array_shift($strBottoms);
         foreach($properties as $property){
@@ -40,10 +44,30 @@ class RefreshClassHander extends GenerateApiHandler
             {
                 continue;
             }
-            if(!is_null($propertyType))
+
+            if(!is_null($propertyType) && str_contains($propertyType->getName(),"App\Dto"))
             {
-                $propertyClassName = pathinfo(str_replace("\\","/",$propertyType->getName()),PATHINFO_FILENAME);
-                $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"object\", ref=\"#/components/schemas/{$propertyClassName}\"),\n";
+                $propertyClass = new ReflectionClass($propertyType->getName());
+                if(str_contains($propertyClass->getParentClass()->getName(),"DataTransferObjectCollection"))
+                {
+                    $collectionClassName = $propertyClass->getMethod('current')->getReturnType()->getName();
+                    $collectionClassPath = str_replace("App","app",$collectionClassName);
+                    $collectionClassContent = fileGetContents($collectionClassPath.'.php');
+                    if(str_contains($collectionClassContent,"@OA\Schema"))
+                    {
+                        $propertyClassName = pathinfo(str_replace("\\","/",$collectionClassName),PATHINFO_FILENAME);
+                        $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"array\", @OA\Items(ref=\"#/components/schemas/{$propertyClassName}\")),\n";
+                    }
+                    else
+                    {
+                        $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"array\"),\n";
+                    }
+                }
+                else
+                {
+                    $propertyClassName = pathinfo(str_replace("\\","/",$propertyType->getName()),PATHINFO_FILENAME);
+                    $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"object\", ref=\"#/components/schemas/{$propertyClassName}\"),\n";
+                }
             }
             else
             {

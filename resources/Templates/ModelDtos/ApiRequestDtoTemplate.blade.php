@@ -1,10 +1,9 @@
 namespace App\Dto\ApiDto;
 
 use Illuminate\Http\Request;
+use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
-use App\Dto\ModelDto\{{ $model_name }}Dto;
-
-class {{ $action_name }}{{ $model_name }}RequestDto extends {{ $model_name }}Dto
+class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransferObject
 {
     public $current_user;
 
@@ -21,7 +20,7 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends {{ $model_name }}Dto
  *     schema="{{ $action_name }}{{ $model_name }}ApiRequest",
  *     type="object",
  *     title="{{ $action_name }}{{ $model_name }}ApiRequest",
- *     properties={
+ *     properties = {
 @foreach ($fillable as $field)
  *         @OA\Property(property="{{ $field }}", type="string"),
 @endforeach

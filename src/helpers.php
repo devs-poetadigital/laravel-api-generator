@@ -15,6 +15,11 @@ function correctPath(&$filePath){
     if (isOSWindowns())
     {
         $filePath = '//'.$filePath;
+        $filePath = str_replace("/","\\",$filePath);
+    }
+    else
+    {
+        $filePath = str_replace("\\","/",$filePath);
     }
 }
 

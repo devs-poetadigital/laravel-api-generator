@@ -15,7 +15,7 @@ Install this package as a dependency using [Composer](https://getcomposer.org).
 
 ``` bash
 "require": {
-        "devs-poetadigital/laravel-api-generator": "0.0.3"
+        "devs-poetadigital/laravel-api-generator": "0.0.4"
     },
 "repositories": [
         {
@@ -23,7 +23,9 @@ Install this package as a dependency using [Composer](https://getcomposer.org).
           "url": "https://github.com/devs-poetadigital/laravel-api-generator"
         }
     ],
-composer install
+composer install 
+or 
+composer require devs-poetadigital/laravel-api-generator
 ```
 
 ## Create CRUD

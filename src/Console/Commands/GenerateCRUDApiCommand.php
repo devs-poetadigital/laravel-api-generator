@@ -77,7 +77,7 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
         }
         if(str_contains($strActions,'r'))
         {
-            $listInputAction[] = 'Read';
+            $listInputAction[] = 'Get';
         }
         if(str_contains($strActions,'d'))
         {

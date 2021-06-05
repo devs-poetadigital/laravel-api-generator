@@ -17,7 +17,7 @@ class GenerateApiCommand extends Command
 
     public function getModels()
     {
-        $modelName = ucfirst($this->argument('model_name'));
+        $this->modelName = ucfirst($this->argument('model_name'));
         $dir = "app/Models/"; 
         correctPath($dir);
         $filePaths = glob($dir.'*.php');

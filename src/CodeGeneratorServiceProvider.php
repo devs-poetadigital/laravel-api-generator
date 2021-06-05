@@ -35,7 +35,6 @@ class CodeGeneratorServiceProvider extends ServiceProvider
         $this->commands([
             'command.api:crud',
             'command.api:make',
-            'command.api:controller',
             'command.api:dto',
             'command.api:service',
             'command.api:route',

@@ -29,7 +29,7 @@ class GenerateApiCommand extends Command
         {
             if (!in_array($this->modelName, $files)) {
                 $models = implode('|',$files);
-                $modelName = $this->anticipate("Wrong model name! What is your model? ($models)", $files);
+                $this->modelName = $this->anticipate("Wrong model name! What is your model? ($models)", $files);
             }
             $files = [$this->modelName];
         }

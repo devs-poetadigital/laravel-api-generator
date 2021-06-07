@@ -9,9 +9,9 @@ class {{ $action_name }}{{ $model_name }}ResponseItem extends {{ $model_name }}D
 
 /**
  * @OA\Schema(
- *     schema="SearchUserResponseItem",
+ *     schema="{{ $action_name }}{{ $model_name }}ResponseItem",
  *     type="object",
- *     title="SearchUserResponseItem",
+ *     title="{{ $action_name }}{{ $model_name }}ResponseItem",
  *     properties = {
  *         @OA\Property(property="id", type="string"),
 @foreach ($fillable as $field)

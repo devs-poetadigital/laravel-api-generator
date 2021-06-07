@@ -25,13 +25,13 @@ class GenerateApiCommand extends Command
         {
             $files[] = basename($filePath, ".php");
         }
-        if(!empty($modelName))
+        if(!empty($this->modelName))
         {
-            if (!in_array($modelName, $files)) {
+            if (!in_array($this->modelName, $files)) {
                 $models = implode('|',$files);
                 $modelName = $this->anticipate("Wrong model name! What is your model? ($models)", $files);
             }
-            $files = [$modelName];
+            $files = [$this->modelName];
         }
         return $files;
     }

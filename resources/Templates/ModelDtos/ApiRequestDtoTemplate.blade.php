@@ -10,18 +10,18 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
     @switch($action_name)
     @case('Create')
         @foreach ($fillable as $field)
-    public ${{ $field }};
+public ${{ $field }};
         @endforeach
         @break
 
     @case('Delete')
-    public $id;
+public $id;
         @break
 
     @default
-    public $id;
+public $id;
         @foreach ($fillable as $field)
-    public ${{ $field }};
+public ${{ $field }};
         @endforeach
     @endswitch
 

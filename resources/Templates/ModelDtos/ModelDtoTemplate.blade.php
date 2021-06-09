@@ -10,7 +10,7 @@ class {{ $model_name }}Dto extends FlexibleDataTransferObject
 {
     public $id;
 @foreach ($fillable as $field)
-    public ${{ $field }};
+    public ${{ $field->name }};
 @endforeach
     
     public $created_at;
@@ -23,12 +23,12 @@ class {{ $model_name }}Dto extends FlexibleDataTransferObject
  *     type="object",
  *     title="{{ $model_name }}Dto",
  *     properties = {
- *         @OA\Property(property="id", type="string"),
+ *         @OA\Property(property="id", type="integer"),
 @foreach ($fillable as $field)
- *         @OA\Property(property="{{ $field }}", type="string"),
+ *         @OA\Property(property="{{ $field->name }}", type="{{ $field->type }}"),
 @endforeach
- *         @OA\Property(property="created_at", type="string"),
- *         @OA\Property(property="updated_at", type="string")
+ *         @OA\Property(property="created_at", type="number"),
+ *         @OA\Property(property="updated_at", type="number")
  *     }
  * )
  */

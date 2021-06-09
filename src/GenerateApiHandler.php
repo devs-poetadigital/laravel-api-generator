@@ -29,7 +29,14 @@ class GenerateApiHandler
     }
 
     protected function getFillables(){
-        return resolve('App\Models\\'.$this->modelName)->getFillable();
+        $properties = resolve('App\Models\\'.$this->modelName)->getFillable();
+        $models = [];
+        foreach($properties as $property){
+            $model = new PropertyModel();
+            $model->name = $property;
+            $models[] = $model;
+        }
+        return $models;
     }
 
     protected function exportFile($content, $filePath) {

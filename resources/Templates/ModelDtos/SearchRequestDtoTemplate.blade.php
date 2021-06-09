@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 class {{ $action_name }}{{ $model_name }}RequestDto extends SearchCriteriaDto
 {
 @foreach ($fillable as $field)
-    public ${{ $field }};
+    public ${{ $field->name }};
 @endforeach
 
     public static function fromRequest(Request $request): self
@@ -23,7 +23,7 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends SearchCriteriaDto
  *     title="{{ $action_name }}{{ $model_name }}ApiRequest",
  *     properties = {
 @foreach ($fillable as $field)
- *         @OA\Property(property="{{ $field }}", type="string"),
+ *         @OA\Property(property="{{ $field->name }}", type="{{ $field->type }}"),
 @endforeach
  *     }
  * )

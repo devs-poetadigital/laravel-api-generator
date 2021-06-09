@@ -21,7 +21,7 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends SearchCriteriaDto
  *     schema="{{ $action_name }}{{ $model_name }}ApiRequest",
  *     type="object",
  *     title="{{ $action_name }}{{ $model_name }}ApiRequest",
- *     properties={
+ *     properties = {
 @foreach ($fillable as $field)
  *         @OA\Property(property="{{ $field }}", type="string"),
 @endforeach

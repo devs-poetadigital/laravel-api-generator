@@ -50,8 +50,8 @@ class GenerateServiceHandler extends GenerateApiHandler
             }
             $this->exportFile($content,$this->getPath().$serviceName.'.php');
         }
-            
-        if($model->action_name == 'Search')
+        
+        if(str_contains($model->action_name, 'Search'))
         {
             $sharePath = $this->pathServices.'Share/';
             createFileIfNeed($sharePath);

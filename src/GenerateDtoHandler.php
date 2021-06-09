@@ -41,7 +41,7 @@ class GenerateDtoHandler extends GenerateApiHandler
                 break;
             }
         }
-        if($action == 'Search')
+        if(str_contains($action, 'Search'))
         {
             $requestTemplate = "SearchRequestDtoTemplate";
             $responseTemplate = "SearchResponseDtoTemplate";

@@ -39,34 +39,54 @@ class RefreshClassHander extends GenerateApiHandler
         array_shift($strBottoms);
         foreach($properties as $property){
             $propertyType = $property->getType();
+
+            
             $propertyName = $property->getName();
             if(in_array($propertyName,["data","ignoreMissing","exceptKeys","onlyKeys"]))
             {
                 continue;
             }
 
-            if(!is_null($propertyType) && str_contains($propertyType->getName(),"App\Dto"))
+            if(!is_null($propertyType))
             {
-                $propertyClass = new ReflectionClass($propertyType->getName());
-                if(str_contains($propertyClass->getParentClass()->getName(),"DataTransferObjectCollection"))
+                $propertyTypeName = $propertyType->getName();
+                if(str_contains($propertyTypeName, "App\Dto"))
                 {
-                    $collectionClassName = $propertyClass->getMethod('current')->getReturnType()->getName();
-                    $collectionClassPath = str_replace("App","app",$collectionClassName);
-                    $collectionClassContent = fileGetContents($collectionClassPath.'.php');
-                    if(str_contains($collectionClassContent,"@OA\Schema"))
+                    $propertyClass = new ReflectionClass($propertyType->getName());
+                    if(str_contains($propertyClass->getParentClass()->getName(),"DataTransferObjectCollection"))
                     {
-                        $propertyClassName = pathinfo(str_replace("\\","/",$collectionClassName),PATHINFO_FILENAME);
-                        $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"array\", @OA\Items(ref=\"#/components/schemas/{$propertyClassName}\")),\n";
+                        $collectionClassName = $propertyClass->getMethod('current')->getReturnType()->getName();
+                        $collectionClassPath = str_replace("App","app",$collectionClassName);
+                        $collectionClassContent = fileGetContents($collectionClassPath.'.php');
+                        if(str_contains($collectionClassContent,"@OA\Schema"))
+                        {
+                            $propertyClassName = pathinfo(str_replace("\\","/",$collectionClassName),PATHINFO_FILENAME);
+                            $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"array\", @OA\Items(ref=\"#/components/schemas/{$propertyClassName}\")),\n";
+                        }
+                        else
+                        {
+                            $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"array\"),\n";
+                        }
                     }
                     else
                     {
-                        $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"array\"),\n";
+                        $propertyClassName = pathinfo(str_replace("\\","/",$propertyType->getName()),PATHINFO_FILENAME);
+                        $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"object\", ref=\"#/components/schemas/{$propertyClassName}\"),\n";
                     }
                 }
                 else
                 {
-                    $propertyClassName = pathinfo(str_replace("\\","/",$propertyType->getName()),PATHINFO_FILENAME);
-                    $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"object\", ref=\"#/components/schemas/{$propertyClassName}\"),\n";
+                    switch ($propertyTypeName) {
+                        case 'int':
+                            $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"integer\"),\n";
+                          break;
+                        case 'float':
+                        case 'double':
+                            $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"number\"),\n";
+                          break;
+                        default:
+                            $strProperties = $strProperties." *                  @OA\Property(property=\"{$propertyName}\", type=\"string\"),\n";
+                      } 
                 }
             }
             else

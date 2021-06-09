@@ -7,23 +7,18 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
 {
     public $current_user;
 
-    @switch($action_name)
-    @case('Create')
+    @if (str_contains($action_name, 'Create'))
         @foreach ($fillable as $field)
 public ${{ $field }};
         @endforeach
-        @break
-
-    @case('Delete')
+    @elseif (str_contains($action_name, 'Delete'))
 public $id;
-        @break
-
-    @default
+    @else
 public $id;
         @foreach ($fillable as $field)
 public ${{ $field }};
         @endforeach
-    @endswitch
+    @endif
 
     public static function fromRequest(Request $request): self
     {

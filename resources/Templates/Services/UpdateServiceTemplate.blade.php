@@ -19,8 +19,8 @@ class {{ $action_name }}{{ $model_name }}Service
         }
 
 @foreach ($fillable as $field)
-        if ($request->has('{{ $field->name }}')) {
-            $entity->{{ $field->name }} = $requestDto->{{ $field->name }};
+        if ($request->has('{{ $field['name'] }}')) {
+            $entity->{{ $field['name'] }} = $requestDto->{{ $field['name'] }};
         }
 @endforeach
 

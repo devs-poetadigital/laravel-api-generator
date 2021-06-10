@@ -11,6 +11,7 @@ class GenerateControllerHandler extends GenerateApiHandler
         $model = new GenerateModel();
         $model->model_name = $this->modelName;
         $model->action_name = $this->actionName;
+        $model->action_name_kebab = $model->getActionNameKebab();
         $model->fillable = $this->getFillables();
         $this->generateControllerCode($model);
     }

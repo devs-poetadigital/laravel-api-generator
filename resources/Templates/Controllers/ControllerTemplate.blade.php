@@ -32,9 +32,9 @@ class {{ $action_name }}{{ $model_name }}FormRequest extends AppFormRequest
 
 /**
 * @OA\Post(
-*     path="/api/{{ strtolower($model_name) }}/{{ strtolower($action_name) }}",
+*     path="/api/{{ strtolower($model_name) }}/{{ strtolower($action_name_kebab) }}",
 *     summary="{{ $action_name }} {{ $model_name }}",
-*     operationId="{{ strtolower($action_name) }}/{{ strtolower($model_name) }}",
+*     operationId="{{ strtolower($action_name_kebab) }}/{{ strtolower($model_name) }}",
 *     tags={"---------- {{ $model_name }} ----------"},
 *     security=@{{"bearerAuth": {}}},
 *     @OA\RequestBody(

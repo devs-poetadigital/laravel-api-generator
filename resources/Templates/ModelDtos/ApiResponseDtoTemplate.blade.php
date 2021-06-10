@@ -28,6 +28,7 @@ class {{ $action_name }}{{ $model_name }}ResponseDto extends {{ $model_name }}Dt
  *         @OA\Property(
  *              property="data", 
  *              type="object", 
+@if (!str_contains($action_name, 'Delete'))
  *              properties = {
  *                  @OA\Property(property="id", type="integer"),
 @foreach ($fillable as $field)
@@ -48,6 +49,7 @@ class {{ $action_name }}{{ $model_name }}ResponseDto extends {{ $model_name }}Dt
  *                  @OA\Property(property="created_at", type="number"),
  *                  @OA\Property(property="updated_at", type="number")
  *              }
+@endif
  *         ),
  *     }
  * )

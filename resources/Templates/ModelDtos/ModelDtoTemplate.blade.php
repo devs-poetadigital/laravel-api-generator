@@ -10,11 +10,11 @@ class {{ $model_name }}Dto extends FlexibleDataTransferObject
 {
     public int $id;
 @foreach ($fillable as $field)
-    public {{ $field['type'] }} ${{ $field['name'] }};
+    public ?{{ $field['type'] }} ${{ $field['name'] }};
 @endforeach
     
-    public $created_at;
-    public $updated_at;
+    public ?float $created_at;
+    public ?float $updated_at;
 }
 
 /**

@@ -6,10 +6,10 @@ use Spatie\DataTransferObject\FlexibleDataTransferObject;
 
 class SearchCriteriaDto extends FlexibleDataTransferObject
 {
-    public $perPage;
-    public $page;
-    public $sortBy;
-    public $order;
+    public ?int $perPage;
+    public ?int $page;
+    public ?string $sortBy;
+    public ?string $order;
     public $timeOffset;
     public $current_user;
 

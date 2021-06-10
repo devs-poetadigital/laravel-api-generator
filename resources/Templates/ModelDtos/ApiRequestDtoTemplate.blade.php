@@ -9,14 +9,14 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
 
 @if (str_contains($action_name, 'Create'))
 @foreach ($fillable as $field)
-    public {{ $field['type'] }} ${{ $field['name'] }};
+    public ?{{ $field['type'] }} ${{ $field['name'] }};
 @endforeach
-@elseif (str_contains($action_name, 'Delete'))
-    public int $id;
+@elseif (str_contains($action_name, 'Delete') || str_contains($action_name, 'Get'))
+    public ?int $id;
 @else
-    public int $id;
+    public ?int $id;
 @foreach ($fillable as $field)
-    public {{ $field['type'] }} ${{ $field['name'] }};
+    public ?{{ $field['type'] }} ${{ $field['name'] }};
 @endforeach
 @endif
 
@@ -34,6 +34,8 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
  *     type="object",
  *     title="{{ $action_name }}{{ $model_name }}ApiRequest",
  *     properties = {
+@if (str_contains($action_name, 'Create'))
+ *         @OA\Property(property="id", type="integer"),
 @foreach ($fillable as $field)
 @switch($field['type'])
 @case('int')
@@ -48,6 +50,25 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
  *         @OA\Property(property="{{ $field['name'] }}", type="string"),
 @endswitch
 @endforeach
+@elseif (str_contains($action_name, 'Delete') || str_contains($action_name, 'Get'))
+ *         @OA\Property(property="id", type="integer"),
+@else
+ *         @OA\Property(property="id", type="integer"),
+@foreach ($fillable as $field)
+@switch($field['type'])
+@case('int')
+ *         @OA\Property(property="{{ $field['name'] }}", type="integer"),
+@break
+@case('float')
+@case('double')
+ *         @OA\Property(property="{{ $field['name'] }}", type="number"),
+@break
+
+@default
+ *         @OA\Property(property="{{ $field['name'] }}", type="string"),
+@endswitch
+@endforeach
+@endif
  *     }
  * )
  */

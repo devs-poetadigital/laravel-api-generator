@@ -2,6 +2,7 @@
 
 namespace CodeGenerator;
 
+use ReflectionClass;
 use CodeGenerator\Console\Commands\GenerateApiCommand;
 
 class GenerateApiHandler 
@@ -29,11 +30,24 @@ class GenerateApiHandler
     }
 
     protected function getFillables(){
-        $properties = resolve('App\Models\\'.$this->modelName)->getFillable();
+        $className = 'App\Models\\'.$this->modelName;
+        $fillables = resolve($className)->getFillable();
+        $class = new ReflectionClass($className);
+        $properties = $class->getProperties();
         $models = [];
-        foreach($properties as $property){
+        foreach($fillables as $field){
+            $filterProperties = array_filter($properties, function($property) use ($field){
+                $propertyName = $property->getName();
+                return $field == $propertyName;
+            });
+            $type = 'string';
+            if(count($filterProperties) > 0)
+            {
+                $type = $filterProperties[0]->getType()->getName();
+            }
             $model = new PropertyModel();
-            $model->name = $property;
+            $model->name = $field;
+            $model->type = $type;
             $models[] = $model;
         }
         return $models;

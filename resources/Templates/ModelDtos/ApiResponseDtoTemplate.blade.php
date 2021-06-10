@@ -31,7 +31,19 @@ class {{ $action_name }}{{ $model_name }}ResponseDto extends {{ $model_name }}Dt
  *              properties = {
  *                  @OA\Property(property="id", type="integer"),
 @foreach ($fillable as $field)
- *                  @OA\Property(property="{{ $field->name }}", type={{ $field->type }}),
+@switch($field['type'])
+@case('int')
+ *                  @OA\Property(property="{{ $field['name'] }}", type="integer"),
+@break
+
+@case('float')
+@case('double')
+ *                  @OA\Property(property="{{ $field['name'] }}", type="number"),
+@break
+
+@default
+ *                  @OA\Property(property="{{ $field['name'] }}", type="string"),
+@endswitch
 @endforeach
  *                  @OA\Property(property="created_at", type="number"),
  *                  @OA\Property(property="updated_at", type="number")

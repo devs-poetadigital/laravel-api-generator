@@ -8,16 +8,16 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
     public $current_user;
 
     @if (str_contains($action_name, 'Create'))
-        @foreach ($fillable as $field)
-public ${{ $field->name }};
-        @endforeach
+    @foreach ($fillable as $field)
+public {{ $field['type'] }} ${{ $field['name'] }};
+    @endforeach
     @elseif (str_contains($action_name, 'Delete'))
-public $id;
+public int $id;
     @else
-public $id;
-        @foreach ($fillable as $field)
-public ${{ $field->name }};
-        @endforeach
+public int $id;
+    @foreach ($fillable as $field)
+public {{ $field['type'] }} ${{ $field['name'] }};
+    @endforeach
     @endif
 
     public static function fromRequest(Request $request): self
@@ -35,7 +35,18 @@ public ${{ $field->name }};
  *     title="{{ $action_name }}{{ $model_name }}ApiRequest",
  *     properties = {
 @foreach ($fillable as $field)
- *         @OA\Property(property="{{ $field->name }}", type="{{ $field->type }}"),
+@switch($field['type'])
+@case('int')
+ *         @OA\Property(property="{{ $field['name'] }}", type="integer"),
+@break
+@case('float')
+@case('double')
+ *         @OA\Property(property="{{ $field['name'] }}", type="number"),
+@break
+
+@default
+ *         @OA\Property(property="{{ $field['name'] }}", type="string"),
+@endswitch
 @endforeach
  *     }
  * )

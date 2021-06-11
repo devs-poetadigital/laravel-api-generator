@@ -34,8 +34,9 @@ class GenerateApiHandler
 
     protected function getFillables(){
         $className = 'App\Models\\'.$this->modelName;
-        $table = resolve($className)->getTable();
-        $fillables = resolve($className)->getFillable();
+        $class = resolve($className);
+        $table = $class->getTable();
+        $fillables = $class->getFillable();
         $models = [];
         foreach($fillables as $field){
             $columnType = Schema::getColumnType($table,$field);

@@ -2,7 +2,10 @@
 
 namespace CodeGenerator;
 
+use Exception;
 use ReflectionClass;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use CodeGenerator\Console\Commands\GenerateApiCommand;
 
 class GenerateApiHandler 
@@ -20,7 +23,7 @@ class GenerateApiHandler
 
     public function __construct(GenerateApiCommand $command, $action = null){
         $this->command = $command;
-        $this-> modelName = $command->modelName;
+        $this->modelName = $command->modelName;
         $this->actionName = $command->getAction();
         if(!is_null($action))
         {
@@ -31,23 +34,27 @@ class GenerateApiHandler
 
     protected function getFillables(){
         $className = 'App\Models\\'.$this->modelName;
+        $table = resolve($className)->getTable();
         $fillables = resolve($className)->getFillable();
-        $class = new ReflectionClass($className);
-        $properties = $class->getProperties();
         $models = [];
         foreach($fillables as $field){
-            $filterProperties = array_filter($properties, function($property) use ($field){
-                $propertyName = $property->getName();
-                return $field == $propertyName;
-            });
-            $type = 'string';
-            if(count($filterProperties) > 0)
-            {
-                $type = $filterProperties[0]->getType()->getName();
-            }
+            $columnType = Schema::getColumnType($table,$field);
             $model = new PropertyModel();
+            switch ($columnType){
+                case 'bigint':
+                case 'integer':
+                case 'boolean':
+                case 'datetime':
+                    $model->type = 'int';
+                    break;
+                case 'decimal':
+                    $model->type = 'float';
+                    break;
+                default:
+                    $model->type = 'string';
+                    break;
+            }
             $model->name = $field;
-            $model->type = $type;
             $models[] = $model;
         }
         return $models;

@@ -2,6 +2,7 @@
 
 namespace CodeGenerator\Console\Commands;
 
+use CodeGenerator\GenerateModel;
 use CodeGenerator\GenerateRouteHandler;
 
 class GenerateRouteCommand extends GenerateApiCommand
@@ -38,7 +39,8 @@ class GenerateRouteCommand extends GenerateApiCommand
     public function handle()
     {
         $this->getModels();
-        (new GenerateRouteHandler($this))->handle();
+        $model = $this->generateModel($this->modelName, $this->getAction());
+        (new GenerateRouteHandler($this,$model))->handle();
         parent::handle();
     }
 }

@@ -8,19 +8,15 @@ class GenerateDtoHandler extends GenerateApiHandler
     
     public function handle()
     {
-        $model = new GenerateModel();
-        $model->model_name = $this->modelName;
-        $model->action_name = $this->actionName;
-        $model->fillable = $this->getFillables();
-        $this->generateModelCode($model);
-        if(!is_null($this->actionName))
+        $this->generateModelCode($this->model);
+        if(!is_null($this->model->action_name))
         {
-            $this->generateApiCode($model);
+            $this->generateApiCode($this->model);
         }
     }
 
     protected function generateModelCode(GenerateModel $model){
-        $dtoName = $this->modelName.'Dto';
+        $dtoName = $model->model_name.'Dto';
         createFileIfNeed($this->pathModelDto);
         $blade = new Blade($this->templatePath, $this->cachPath);
         $content = $blade->make("ModelDtoTemplate", $model->toArray())->render();

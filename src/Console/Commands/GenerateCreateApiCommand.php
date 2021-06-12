@@ -2,6 +2,7 @@
 
 namespace CodeGenerator\Console\Commands;
 
+use CodeGenerator\GenerateModel;
 use CodeGenerator\GenerateDtoHandler;
 use CodeGenerator\GenerateRouteHandler;
 use CodeGenerator\GenerateServiceHandler;
@@ -66,10 +67,11 @@ class GenerateCreateApiCommand extends GenerateApiCommand
                 {
                     $action = $this->ask('What is your action (sparate by -. eg: manage-user)?');
                 }
-                (new GenerateDtoHandler($this))->handle();
-                (new GenerateServiceHandler($this, $action))->handle();
-                (new GenerateControllerHandler($this, $action))->handle();
-                (new GenerateRouteHandler($this, $action))->handle();
+                $model = $this->generateModel($this->modelName,$action);
+                (new GenerateDtoHandler($this,$model))->handle();
+                (new GenerateServiceHandler($this, $model))->handle();
+                (new GenerateControllerHandler($this, $model))->handle();
+                (new GenerateRouteHandler($this, $model))->handle();
             }
         }
         parent::handle();

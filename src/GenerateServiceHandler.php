@@ -8,15 +8,11 @@ class GenerateServiceHandler extends GenerateApiHandler
 
     public function handle()
     {
-        $model = new GenerateModel();
-        $model->model_name = $this->modelName;
-        $model->action_name = $this->actionName;
-        $model->fillable = $this->getFillables();
-        $this->generateServiceCode($model);
+        $this->generateServiceCode($this->model);
     }
 
     protected function generateServiceCode(GenerateModel $model){
-        $serviceName = $model->action_name.$this->modelName.'Service';
+        $serviceName = $model->action_name.$model->model_name.'Service';
         $override = true;
         if (fileExists($this->getPath().$serviceName.'.php')) {
             $override = $this->command->confirm("$serviceName has existed! Do you wish to override?", true);
@@ -65,6 +61,6 @@ class GenerateServiceHandler extends GenerateApiHandler
     }
 
     private function getPath(){
-        return $this->pathServices.$this->modelName.'Service/';
+        return $this->pathServices.$this->model->model_name.'Service/';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace CodeGenerator\Console\Commands;
 
+use CodeGenerator\GenerateModel;
 use CodeGenerator\GenerateDtoHandler;
 use CodeGenerator\GenerateRouteHandler;
 use CodeGenerator\GenerateServiceHandler;
@@ -41,7 +42,7 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
      */
     public function handle()
     {
-        $models = $this->getModels();
+        $modelNames = $this->getModels();
         
         $actions = $this->supportActions;
         $action = $this->getAction();
@@ -58,15 +59,17 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
             }
             $actions = array_diff($actions, array("Custom"));
         }
-        foreach ($models as $model)
+        foreach ($modelNames as $modelName)
         {
-            $this->modelName = $model;
+            $model = $this->generateModel($modelName,$action);
             foreach ($actions as $action)
             {
-                (new GenerateDtoHandler($this, $action))->handle();
-                (new GenerateServiceHandler($this, $action))->handle();
-                (new GenerateControllerHandler($this, $action))->handle();
-                (new GenerateRouteHandler($this, $action))->handle();
+                $model->action_name = $action;
+                $model->action_name_kebab = $model->getActionNameKebab();
+                (new GenerateDtoHandler($this, $model))->handle();
+                (new GenerateServiceHandler($this, $model))->handle();
+                (new GenerateControllerHandler($this, $model))->handle();
+                (new GenerateRouteHandler($this, $model))->handle();
             }
         }
         parent::handle();

@@ -2,6 +2,7 @@
 
 namespace CodeGenerator\Console\Commands;
 
+use CodeGenerator\GenerateModel;
 use CodeGenerator\GenerateDtoHandler;
 
 
@@ -39,7 +40,8 @@ class GenerateDtoCommand extends GenerateApiCommand
     public function handle()
     {
         $this->getModels();
-        (new GenerateDtoHandler($this))->handle();
+        $model = $this->generateModel($this->modelName, $this->getAction());
+        (new GenerateDtoHandler($this,$model))->handle();
         parent::handle();
     }
 }

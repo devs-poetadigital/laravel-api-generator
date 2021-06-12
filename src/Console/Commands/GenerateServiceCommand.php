@@ -2,6 +2,7 @@
 
 namespace CodeGenerator\Console\Commands;
 
+use CodeGenerator\GenerateModel;
 use CodeGenerator\GenerateServiceHandler;
 
 class GenerateServiceCommand extends GenerateApiCommand
@@ -38,7 +39,8 @@ class GenerateServiceCommand extends GenerateApiCommand
     public function handle()
     {
         $this->getModels();
-        (new GenerateServiceHandler($this))->handle();
+        $model = $this->generateModel($this->modelName, $this->getAction());
+        (new GenerateServiceHandler($this,$model))->handle();
         parent::handle();
     }
 }

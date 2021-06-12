@@ -2,6 +2,7 @@
 
 namespace CodeGenerator\Console\Commands;
 
+use CodeGenerator\GenerateModel;
 use CodeGenerator\RefreshClassHander;
 
 class RefreshClassCommand extends GenerateApiCommand
@@ -38,7 +39,8 @@ class RefreshClassCommand extends GenerateApiCommand
     public function handle()
     {
         $this->modelName = ucfirst($this->argument('model_name'));
-        (new RefreshClassHander($this))->handle();
+        $model = $this->generateModel($this->modelName, $this->getAction());
+        (new RefreshClassHander($this,$model))->handle();
         parent::handle();
     }
 }

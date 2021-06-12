@@ -8,17 +8,12 @@ class GenerateControllerHandler extends GenerateApiHandler
 
     public function handle()
     {
-        $model = new GenerateModel();
-        $model->model_name = $this->modelName;
-        $model->action_name = $this->actionName;
-        $model->action_name_kebab = $model->getActionNameKebab();
-        $model->fillable = $this->getFillables();
-        $this->generateControllerCode($model);
+        $this->generateControllerCode($this->model);
     }
 
     protected function generateControllerCode(GenerateModel $model){
         $override = true;
-        $controllerName = $model->action_name.$this->modelName.'Controller';
+        $controllerName = $model->action_name.$model->model_name.'Controller';
         if(fileExists($this->getPath().$controllerName.'.php')){
             $override = $this->command->confirm("$controllerName has existed! Do you wish to override?");
         }
@@ -39,6 +34,6 @@ class GenerateControllerHandler extends GenerateApiHandler
     }
 
     private function getPath(){
-        return $this->pathApiController.$this->modelName.'/';
+        return $this->pathApiController.$this->model->model_name.'/';
     }
 }

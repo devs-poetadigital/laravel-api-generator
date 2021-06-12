@@ -3,6 +3,9 @@
 namespace CodeGenerator\Console\Commands;
 
 use Illuminate\Console\Command;
+use CodeGenerator\GenerateModel;
+use CodeGenerator\PropertyModel;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Artisan;
 
 class GenerateApiCommand extends Command
@@ -53,5 +56,44 @@ class GenerateApiCommand extends Command
             }
             return $action;
         }
+        return null;
+    }
+
+    protected function getFillables($modelName){
+        $className = 'App\Models\\'.$modelName;
+        $class = resolve($className);
+        $table = $class->getTable();
+        $fillables = $class->getFillable();
+        $models = [];
+        foreach($fillables as $field){
+            $columnType = Schema::getColumnType($table,$field);
+            $model = new PropertyModel();
+            switch ($columnType){
+                case 'bigint':
+                case 'integer':
+                case 'boolean':
+                case 'datetime':
+                    $model->type = 'int';
+                    break;
+                case 'decimal':
+                    $model->type = 'float';
+                    break;
+                default:
+                    $model->type = 'string';
+                    break;
+            }
+            $model->name = $field;
+            $models[] = $model;
+        }
+        return $models;
+    }
+
+    function generateModel($modelName, $action){
+        $model = new GenerateModel();
+        $model->model_name = $modelName;
+        $model->action_name = $action;
+        $model->action_name_kebab = $model->getActionNameKebab();
+        $model->fillable = $this->getFillables($modelName);
+        return $model;
     }
 }

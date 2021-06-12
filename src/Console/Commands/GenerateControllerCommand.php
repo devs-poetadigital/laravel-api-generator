@@ -1,7 +1,6 @@
 <?php
 
 namespace CodeGenerator\Console\Commands;
-
 use CodeGenerator\GenerateControllerHandler;
 
 class GenerateControllerCommand extends GenerateApiCommand
@@ -38,7 +37,7 @@ class GenerateControllerCommand extends GenerateApiCommand
     public function handle()
     {
         $this->getModels();
-        (new GenerateControllerHandler($this))->handle();
+        (new GenerateControllerHandler($this, $this->generateModel($this->modelName,$this->getAction())))->handle();
         parent::handle();
     }
 }

@@ -10,12 +10,7 @@ class GenerateRouteHandler extends GenerateApiHandler
     
     public function handle()
     {
-        $model = new GenerateModel();
-        $model->model_name = $this->modelName;
-        $model->action_name = $this->actionName;
-        $model->action_name_kebab = $model->getActionNameKebab();
-        $model->fillable = $this->getFillables();
-        $this->generateRouteCode($model);
+        $this->generateRouteCode($this->model);
     }
 
     protected function generateRouteCode(GenerateModel $model){
@@ -30,7 +25,7 @@ class GenerateRouteHandler extends GenerateApiHandler
         {
             $content = $blade->make("GetRouteTemplate", $model->toArray())->render();
         }
-        $path = $this->getPath().$this->modelName.'.php';
+        $path = $this->getPath().$model->model_name.'.php';
         $content = '<?php'.PHP_EOL.$content;
         if(fileExists($path)){
             $use = $this->getUse($content);
@@ -50,7 +45,8 @@ class GenerateRouteHandler extends GenerateApiHandler
         $pathApiRoot = 'routes/api.php';
         if(fileExists($pathApiRoot)){
             $content = fileGetContents($pathApiRoot);
-            $include = "\n@include(\"Api/$this->modelName.php\");";
+            $modelName = $model->model_name;
+            $include = "\n@include(\"Api/$modelName.php\");";
             if (!str_contains($content,$include))
             {
                 $content = $content.$include;

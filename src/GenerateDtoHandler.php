@@ -15,6 +15,35 @@ class GenerateDtoHandler extends GenerateApiHandler
         }
     }
 
+    public function remove(){
+        $action = $this->model->action_name;
+
+        $requestDtoName = $this->model->action_name.$this->model->model_name.'Request'.'Dto';
+        $filePath = $this->pathApiDto.$requestDtoName.'.php';
+        if(fileExists($filePath)){
+            unlink($filePath);
+        }
+
+        $responseDtoName = $this->model->action_name.$this->model->model_name.'Response'.'Dto';
+        $filePath = $this->pathApiDto.$responseDtoName.'.php';
+        if(fileExists($filePath)){
+            unlink($filePath);
+        }
+        if($action == 'Search')
+        {
+            $responseItemName = $this->model->action_name.$this->model->model_name.'Response'.'Item';
+            $filePath = $this->pathApiDto.$responseItemName.'.php';
+            if(fileExists($filePath)){
+                unlink($filePath);
+            }
+            $responseCollectionName = $this->model->action_name.$this->model->model_name.'Response'.'Collection';
+            $filePath = $this->pathApiDto.$responseCollectionName.'.php';
+            if(fileExists($filePath)){
+                unlink($filePath);
+            }
+        }
+    }
+
     protected function generateModelCode(GenerateModel $model){
         $dtoName = $model->model_name.'Dto';
         createFileIfNeed($this->pathModelDto);

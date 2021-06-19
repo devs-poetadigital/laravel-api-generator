@@ -11,6 +11,14 @@ class GenerateControllerHandler extends GenerateApiHandler
         $this->generateControllerCode($this->model);
     }
 
+    public function remove(){
+        $controllerName = $this->model->action_name.$this->model->model_name.'Controller';
+        $filePath = $this->getPath().$controllerName.'.php';
+        if(fileExists($filePath)){
+            unlink($filePath);
+        }
+    }
+
     protected function generateControllerCode(GenerateModel $model){
         $override = true;
         $controllerName = $model->action_name.$model->model_name.'Controller';

@@ -9,21 +9,21 @@ use CodeGenerator\GenerateServiceHandler;
 use CodeGenerator\GenerateControllerHandler;
 
 
-class GenerateCRUDApiCommand extends GenerateApiCommand
+class RemoveCRUDApiCommand extends GenerateApiCommand
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'api:crud {model_name?} {action_name?} {--o|only=}';
+    protected $signature = 'api:remove {model_name} {action_name?} {--o|only=}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Eg: api:cruds User --o|only=cru (use only option for limit action to generate code)';
+    protected $description = 'Eg: api:remove User --o|only=cru (use only option for limit action to generate code)';
 
     /**
      * Create a new command instance.
@@ -43,19 +43,13 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
     public function handle()
     {
         $modelNames = $this->getModels();
-        
-        $actions = $this->supportActions;
         $action = $this->getAction();
         $listInputAction = $this->getInputActions();
         if(!is_null($action))
         {
             $listInputAction[] = $action;
         }
-        
-        if(count($listInputAction) <= 0)
-        {
-            $actions = array_diff($actions, array("Custom"));
-        }
+        $actions = $listInputAction;
         
         foreach ($modelNames as $modelName)
         {
@@ -64,10 +58,10 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
             {
                 $model->action_name = $action;
                 $model->action_name_kebab = $model->getActionNameKebab();
-                (new GenerateDtoHandler($this, $model))->handle();
-                (new GenerateServiceHandler($this, $model))->handle();
-                (new GenerateControllerHandler($this, $model))->handle();
-                (new GenerateRouteHandler($this, $model))->handle();
+                (new GenerateRouteHandler($this, $model))->remove();
+                (new GenerateControllerHandler($this, $model))->remove();
+                (new GenerateServiceHandler($this, $model))->remove();
+                (new GenerateDtoHandler($this, $model))->remove();
             }
         }
         parent::handle();

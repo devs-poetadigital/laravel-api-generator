@@ -11,6 +11,14 @@ class GenerateServiceHandler extends GenerateApiHandler
         $this->generateServiceCode($this->model);
     }
 
+    public function remove(){
+        $serviceName = $this->model->action_name.$this->model->model_name.'Service';
+        $filePath = $this->getPath().$serviceName.'.php';
+        if(fileExists($filePath)){
+            unlink($filePath);
+        }
+    }
+
     protected function generateServiceCode(GenerateModel $model){
         $serviceName = $model->action_name.$model->model_name.'Service';
         $override = true;

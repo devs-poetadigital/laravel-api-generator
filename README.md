@@ -15,20 +15,14 @@ Install this package as a dependency using [Composer](https://getcomposer.org).
 
 ``` bash
 "require": {
-        "devs-poetadigital/laravel-api-generator": "0.0.4"
-    },
-"repositories": [
-        {
-          "type": "vcs",
-          "url": "https://github.com/devs-poetadigital/laravel-api-generator"
-        }
-    ],
+        "devs-poetadigital/laravel-api-generator": "0.1.1"
+    }
 composer install 
 or 
 composer require devs-poetadigital/laravel-api-generator
 ```
 
-## Create CRUD
+## Generate code CRUD api with api:crud
 
 After cloning this repository locally, execute the following commands to create a CRUD for model:
 
@@ -36,10 +30,27 @@ After cloning this repository locally, execute the following commands to create 
 php artisan api:crud {{ model_name }} {{ action_name }} --only={{ your_action }}
 ```
 *model_name* : the model which you want to generate code
-*action_name*: your custom action you want to generate
+*action_name(optional)*: your custom action you want to generate eg: CreateWithAdminRole
 *your_action*: it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
 
 eg: php artisan api:cruds Post GetAll --only=cu
+
+This terminal will generate api for Create an user, Update an User and api GetAll.
+
+Now, you are ready to develop!
+
+## Remove code with api:remove
+
+After cloning this repository locally, execute the following commands to create a CRUD for model:
+
+``` bash
+php artisan api:remove {{ model_name }} {{ action_name }} --only={{ your_action }}
+```
+*model_name* : the model which you want to generate code
+*action_name*: your custom action you want to generate eg: CreateWithAdminRole
+*your_action*: it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
+
+eg: php artisan api:remove Post GetAll --only=cu
 
 This terminal will generate api for Create an user, Update an User and api GetAll.
 
@@ -53,6 +64,16 @@ php artisan api:swagger {{ class_name_dto }}
 *class_name_dto* : the class you want to refresh
 
 eg: php artisan api:swagger CreatePostResponseDto
+
+## Regenerate Model Dto 
+
+``` bash
+php artisan api:dto {{ model_name }} {{ action_name }}
+```
+*model_name* : the model which you want to generate code
+*action_name(optional)*: your custom action you want to generate eg: CreateWithAdminRole
+
+eg: php artisan api:dto User Create
 
 ## Create a service api by model name and action name
 

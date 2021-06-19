@@ -29,9 +29,9 @@ After cloning this repository locally, execute the following commands to create 
 ``` bash
 php artisan api:crud {{ model_name }} {{ action_name }} --only={{ your_action }}
 ```
-*model_name* : the model which you want to generate code
-*action_name(optional)*: your custom action you want to generate eg: CreateWithAdminRole
-*your_action*: it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
+model_name : the model which you want to generate code
+action_name(optional) : your custom action you want to generate eg: CreateWithAdminRole
+your_action : it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
 
 eg: php artisan api:cruds Post GetAll --only=cu
 
@@ -46,9 +46,9 @@ After cloning this repository locally, execute the following commands to create 
 ``` bash
 php artisan api:remove {{ model_name }} {{ action_name }} --only={{ your_action }}
 ```
-*model_name* : the model which you want to generate code
-*action_name*: your custom action you want to generate eg: CreateWithAdminRole
-*your_action*: it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
+model_name : the model which you want to generate code
+action_name : your custom action you want to generate eg: CreateWithAdminRole
+your_action : it are belong in c(Create), r(Read), u(Update), d(Delete), s(Search)
 
 eg: php artisan api:remove Post GetAll --only=cu
 
@@ -61,7 +61,7 @@ Now, you are ready to develop!
 ``` bash
 php artisan api:swagger {{ class_name_dto }} 
 ```
-*class_name_dto* : the class you want to refresh
+class_name_dto : the class you want to refresh
 
 eg: php artisan api:swagger CreatePostResponseDto
 
@@ -70,8 +70,8 @@ eg: php artisan api:swagger CreatePostResponseDto
 ``` bash
 php artisan api:dto {{ model_name }} {{ action_name }}
 ```
-*model_name* : the model which you want to generate code
-*action_name(optional)*: your custom action you want to generate eg: CreateWithAdminRole
+model_name : the model which you want to generate code
+action_name(optional) : your custom action you want to generate eg: CreateWithAdminRole
 
 eg: php artisan api:dto User Create
 

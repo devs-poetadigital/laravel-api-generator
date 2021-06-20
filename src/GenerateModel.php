@@ -9,6 +9,7 @@ class GenerateModel extends FlexibleDataTransferObject
 {
     public $model_name;
     public $action_name;
+    public $table_name;
     public $action_name_kebab;
     public $fillable = [];
 

@@ -16,7 +16,8 @@ class {{ $action_name }}{{ $model_name }}Service
         $queryStr = "
         select * from (
             select *
-            from {{ strtolower($model_name).'s' }}
+            from {{ strtolower($table_name) }}
+        )
         ";
         
         $data = SearchService::handleRawQuery($queryStr, $requestDto, [], ['created_at','updated_at']);

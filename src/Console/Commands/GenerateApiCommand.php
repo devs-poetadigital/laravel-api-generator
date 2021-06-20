@@ -59,9 +59,7 @@ class GenerateApiCommand extends Command
         return null;
     }
 
-    protected function getFillables($modelName){
-        $className = 'App\Models\\'.$modelName;
-        $class = resolve($className);
+    protected function getFillables($class){
         $table = $class->getTable();
         $fillables = $class->getFillable();
         $models = [];
@@ -89,11 +87,14 @@ class GenerateApiCommand extends Command
     }
 
     function generateModel($modelName, $action){
+        $className = 'App\Models\\'.$modelName;
+        $class = resolve($className);
         $model = new GenerateModel();
         $model->model_name = $modelName;
+        $model->table_name = $class->getTable();
         $model->action_name = $action;
         $model->action_name_kebab = $model->getActionNameKebab();
-        $model->fillable = $this->getFillables($modelName);
+        $model->fillable = $this->getFillables($class);
         return $model;
     }
 }

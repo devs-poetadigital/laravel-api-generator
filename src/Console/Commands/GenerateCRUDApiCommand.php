@@ -48,7 +48,7 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
         $action = $this->getAction();
         $listInputAction = $this->getInputActions();
 
-        if(count($listInputAction) <= 0)
+        if(count($listInputAction) <= 0 || is_null($action))
         {
             $actions = array_diff($actions, array("Custom"));
         }

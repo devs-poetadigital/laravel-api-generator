@@ -99,6 +99,9 @@ eg: php artisan api:make Post search --query
 
 ## Copyright and License
 
-The code_generator_php/code_generator library is free and unencumbered software released into the
+The devs-poetadigital/laravel-api-generator library is free and unencumbered software released into the
 public domain. Please see [MIT](MIT) for more information.
+
+## About us
+https://poetadigital.com/
 

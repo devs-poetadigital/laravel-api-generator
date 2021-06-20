@@ -15,7 +15,7 @@ Install this package as a dependency using [Composer](https://getcomposer.org).
 
 ``` bash
 "require": {
-        "devs-poetadigital/laravel-api-generator": "0.1.1"
+        "devs-poetadigital/laravel-api-generator": "0.1.2"
     }
 composer install 
 or 

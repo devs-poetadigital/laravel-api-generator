@@ -14,8 +14,7 @@ function isOSWindowns():bool{
 function correctPath(&$filePath){
     if (isOSWindowns())
     {
-        $filePath = '//'.$filePath;
-        $filePath = str_replace("/","\\",$filePath);
+        $filePath = realpath($filePath);
     }
     else
     {

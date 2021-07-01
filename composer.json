@@ -15,8 +15,8 @@
     },
     "require": {
         "php": "^7.2 || ^8.0",
-        "laravel/framework": "^8.*",
-        "doctrine/dbal": "^3.*",
+        "laravel/framework": "^8.0",
+        "doctrine/dbal": "^3.0",
         "zircote/swagger-php": "3.*",
         "swagger-api/swagger-ui": "^3.0",
         "darkaonline/l5-swagger":"^8.0.5",

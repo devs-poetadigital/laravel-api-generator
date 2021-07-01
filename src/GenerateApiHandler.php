@@ -11,7 +11,7 @@ interface IGenerateApiHandler {
 
 class GenerateApiHandler implements IGenerateApiHandler
 {
-    public IGenerateApiHandler $nextFlow;
+    private ?IGenerateApiHandler $nextFlow;
     protected $pathModelDto = 'app/Dto/ModelDto/';
     protected $pathApiDto = 'app/Dto/ApiDto/';
     protected $pathServices = 'app/Services/';

@@ -14,7 +14,7 @@ class {{ $action_name }}{{ $model_name }}ResponseCollection extends DataTransfer
 
         $items = [];
         foreach($data as $srcItem) {
-            $destItem = (array) $srcItem;
+            $destItem = is_object($srcItem) ? $srcItem->toArray() : (array) $srcItem;
             array_push($items, $destItem);
         }
 

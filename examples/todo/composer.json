@@ -16,7 +16,7 @@
         "laravel/framework": "^8.12",
         "laravel/telescope": "^4.3",
         "laravel/tinker": "^2.5",
-        "devs-poetadigital/laravel-api-generator": "0.0.3"
+        "devs-poetadigital/laravel-api-generator": "0.1.5.x-dev"
     },
     "repositories": [
         {

@@ -9,7 +9,6 @@ class GenerateControllerHandler extends GenerateApiHandler
     public function handle()
     {
         $this->generateControllerCode($this->model);
-        parent::handle();
     }
 
     public function remove(){
@@ -26,21 +25,22 @@ class GenerateControllerHandler extends GenerateApiHandler
         if(fileExists($this->getPath().$controllerName.'.php')){
             $override = $this->command->confirm("$controllerName has existed! Do you wish to override?");
         }
-        if($override)
-        {
-            createFileIfNeed($this->getPath());
-            $blade = new Blade($this->templatePath, $this->cachPath);
-            $templateView = "ControllerTemplate";
-            $content = $blade->make($templateView, $model->toArray())->render();
-            $this->exportFile($content,$this->getPath().$controllerName.'.php');
-            $this->model->shouldOverride = true;
-        }
+        if(!$override) return
+        
+        createFileIfNeed($this->getPath());
+        $blade = new Blade($this->templatePath, $this->cachPath);
+        $templateView = "ControllerTemplate";
+        $content = $blade->make($templateView, $model->toArray())->render();
+        $this->exportFile($content,$this->getPath().$controllerName.'.php');
+        $this->model->shouldOverride = true;
+
         $apiController = "ApiController";
         if(!fileExists($this->pathApiController.$apiController.'.php'))
         {
             $content = $blade->make($apiController, $model->toArray())->render();
             $this->exportFile($content,$this->pathApiController.$apiController.'.php');
         }
+        parent::handle();
     }
 
     private function getPath(){

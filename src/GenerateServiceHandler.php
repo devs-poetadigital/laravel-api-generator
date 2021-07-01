@@ -9,6 +9,7 @@ class GenerateServiceHandler extends GenerateApiHandler
     public function handle()
     {
         $this->generateServiceCode($this->model);
+        parent::handle();
     }
 
     public function remove(){
@@ -22,7 +23,7 @@ class GenerateServiceHandler extends GenerateApiHandler
     protected function generateServiceCode(GenerateModel $model){
         $serviceName = $model->action_name.$model->model_name.'Service';
         $override = true;
-        if (fileExists($this->getPath().$serviceName.'.php')) {
+        if (fileExists($this->getPath().$serviceName.'.php') && !$model->shouldOverride) {
             $override = $this->command->confirm("$serviceName has existed! Do you wish to override?", true);
         }
 

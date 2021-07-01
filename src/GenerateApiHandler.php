@@ -5,8 +5,13 @@ namespace CodeGenerator;
 use Illuminate\Support\Facades\Schema;
 use CodeGenerator\Console\Commands\GenerateApiCommand;
 
-class GenerateApiHandler 
+interface IGenerateApiHandler {
+    function handle();
+}
+
+class GenerateApiHandler implements IGenerateApiHandler
 {
+    public IGenerateApiHandler $nextFlow;
     protected $pathModelDto = 'app/Dto/ModelDto/';
     protected $pathApiDto = 'app/Dto/ApiDto/';
     protected $pathServices = 'app/Services/';
@@ -17,9 +22,17 @@ class GenerateApiHandler
     protected GenerateModel $model;
     public $supportActions = ['Create', 'Update', 'Get', 'Search', 'Delete', 'Custom'];
 
-    public function __construct(GenerateApiCommand $command, GenerateModel $model ){
+    public function handle(){
+        if(!is_null($this->nextFlow))
+        {
+            $this->nextFlow->handle();
+        }
+    }
+
+    public function __construct(GenerateApiCommand $command, GenerateModel $model, IGenerateApiHandler $next = null){
         $this->model = $model;
         $this->command = $command;
+        $this->nextFlow = $next;
         createFileIfNeed($this->cachPath);
     }
 

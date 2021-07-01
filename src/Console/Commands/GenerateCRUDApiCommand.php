@@ -67,10 +67,11 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
             {
                 $model->action_name = $action;
                 $model->action_name_kebab = $model->getActionNameKebab();
-                (new GenerateDtoHandler($this, $model))->handle();
-                (new GenerateServiceHandler($this, $model))->handle();
-                (new GenerateControllerHandler($this, $model))->handle();
-                (new GenerateRouteHandler($this, $model))->handle();
+                $serviceHandler = new GenerateServiceHandler($this, $model);
+                $dtoHandler = new GenerateDtoHandler($this, $model, $serviceHandler);
+                $rootHandle = new GenerateRouteHandler($this, $model, $dtoHandler);
+                $controllerHandler = new GenerateControllerHandler($this, $model, $rootHandle);
+                $controllerHandler->handle();
             }
         }
         parent::handle();

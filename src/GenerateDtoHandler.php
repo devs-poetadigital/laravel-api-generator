@@ -13,6 +13,7 @@ class GenerateDtoHandler extends GenerateApiHandler
         {
             $this->generateApiCode($this->model);
         }
+        parent::handle();
     }
 
     public function remove(){
@@ -82,7 +83,7 @@ class GenerateDtoHandler extends GenerateApiHandler
         $override = true;
         
         $requestDtoName = $model->action_name.$model->model_name.'Request'.'Dto';
-        if(fileExists($this->pathApiDto.$requestDtoName.'.php')){
+        if(fileExists($this->pathApiDto.$requestDtoName.'.php') && !$model->shouldOverride){
             $override = $this->command->confirm("$requestDtoName has existed! Do you wish to override?");
         }
         if($override)
@@ -92,7 +93,7 @@ class GenerateDtoHandler extends GenerateApiHandler
         }
 
         $responseDtoName = $model->action_name.$model->model_name.'Response'.'Dto';
-        if(fileExists($this->pathApiDto.$responseDtoName.'.php')){
+        if(fileExists($this->pathApiDto.$responseDtoName.'.php') && !$model->shouldOverride){
             $override = $this->command->confirm("$responseDtoName has existed! Do you wish to override?");
         }
         if($override)

@@ -40,6 +40,7 @@ class GenerateServiceCommand extends GenerateApiCommand
     {
         $this->getModels();
         $model = $this->generateModel($this->modelName, $this->getAction());
+        $model->shouldOverride = false;
         (new GenerateServiceHandler($this,$model))->handle();
         parent::handle();
     }

@@ -11,6 +11,7 @@ class GenerateRouteHandler extends GenerateApiHandler
     public function handle()
     {
         $this->generateRouteCode($this->model);
+        parent::handle();
     }
 
     public function remove(){

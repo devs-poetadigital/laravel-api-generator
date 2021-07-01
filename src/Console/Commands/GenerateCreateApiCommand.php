@@ -68,10 +68,11 @@ class GenerateCreateApiCommand extends GenerateApiCommand
                     $action = $this->ask('What is your action (sparate by -. eg: manage-user)?');
                 }
                 $model = $this->generateModel($this->modelName,$action);
-                (new GenerateDtoHandler($this,$model))->handle();
-                (new GenerateServiceHandler($this, $model))->handle();
-                (new GenerateControllerHandler($this, $model))->handle();
-                (new GenerateRouteHandler($this, $model))->handle();
+                $serviceHandler = new GenerateServiceHandler($this, $model);
+                $dtoHandler = new GenerateDtoHandler($this, $model, $serviceHandler);
+                $rootHandle = new GenerateRouteHandler($this, $model, $dtoHandler);
+                $controllerHandler = new GenerateControllerHandler($this, $model, $rootHandle);
+                $controllerHandler->handle();
             }
         }
         parent::handle();

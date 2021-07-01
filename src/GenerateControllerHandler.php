@@ -9,6 +9,7 @@ class GenerateControllerHandler extends GenerateApiHandler
     public function handle()
     {
         $this->generateControllerCode($this->model);
+        parent::handle();
     }
 
     public function remove(){
@@ -32,6 +33,7 @@ class GenerateControllerHandler extends GenerateApiHandler
             $templateView = "ControllerTemplate";
             $content = $blade->make($templateView, $model->toArray())->render();
             $this->exportFile($content,$this->getPath().$controllerName.'.php');
+            $this->model->shouldOverride = true;
         }
         $apiController = "ApiController";
         if(!fileExists($this->pathApiController.$apiController.'.php'))

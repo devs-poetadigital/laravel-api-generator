@@ -12,6 +12,7 @@ class GenerateModel extends FlexibleDataTransferObject
     public $table_name;
     public $action_name_kebab;
     public $fillable = [];
+    public $shouldOverride = false;
 
     public function getModelNameKebab(): string {
         return Str::kebab($this->model_name);

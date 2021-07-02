@@ -94,6 +94,7 @@ class GenerateApiCommand extends Command
         $model->table_name = $class->getTable();
         $model->action_name = $action;
         $model->action_name_kebab = $model->getActionNameKebab();
+        $model->model_name_kebab = $model->getModelNameKebab();
         $model->fillable = $this->getFillables($class);
         return $model;
     }

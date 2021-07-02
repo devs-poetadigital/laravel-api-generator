@@ -11,6 +11,7 @@ class GenerateModel extends FlexibleDataTransferObject
     public $action_name;
     public $table_name;
     public $action_name_kebab;
+    public $model_name_kebab;
     public $fillable = [];
     public $shouldOverride = false;
 

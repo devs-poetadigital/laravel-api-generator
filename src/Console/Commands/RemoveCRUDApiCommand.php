@@ -57,7 +57,6 @@ class RemoveCRUDApiCommand extends GenerateApiCommand
             foreach ($actions as $action)
             {
                 $model->action_name = $action;
-                $model->action_name_kebab = $model->getActionNameKebab();
                 (new GenerateRouteHandler($this, $model))->remove();
                 (new GenerateControllerHandler($this, $model))->remove();
                 (new GenerateServiceHandler($this, $model))->remove();

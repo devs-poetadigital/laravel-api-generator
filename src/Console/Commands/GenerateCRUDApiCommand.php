@@ -66,7 +66,6 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
             foreach ($actions as $action)
             {
                 $model->action_name = $action;
-                $model->action_name_kebab = $model->getActionNameKebab();
                 $serviceHandler = new GenerateServiceHandler($this, $model);
                 $dtoHandler = new GenerateDtoHandler($this, $model, $serviceHandler);
                 $rootHandle = new GenerateRouteHandler($this, $model, $dtoHandler);

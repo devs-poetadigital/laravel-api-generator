@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 class {{ $action_name }}{{ $model_name }}RequestDto extends SearchCriteriaDto
 {
 @foreach ($fillable as $field)
-    public {{ $field['type'] }} ${{ $field['name'] }};
+    public ${{ $field['name'] }};
 @endforeach
 
     public static function fromRequest(Request $request): self

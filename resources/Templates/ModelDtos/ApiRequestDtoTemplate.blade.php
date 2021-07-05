@@ -12,7 +12,7 @@ class {{ $action_name }}{{ $model_name }}RequestDto extends FlexibleDataTransfer
     public ?{{ $field['type'] }} ${{ $field['name'] }};
 @endforeach
 @elseif (str_contains($action_name, 'Delete') || str_contains($action_name, 'Get'))
-    public ?int $id;
+    public $id;
 @else
     public ?int $id;
 @foreach ($fillable as $field)

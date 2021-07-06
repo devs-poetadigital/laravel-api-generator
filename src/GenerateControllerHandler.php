@@ -25,7 +25,7 @@ class GenerateControllerHandler extends GenerateApiHandler
         if(fileExists($this->getPath().$controllerName.'.php')){
             $override = $this->command->confirm("$controllerName has existed! Do you wish to override?");
         }
-        if(!$override) return
+        if(!$override) return;
         
         createFileIfNeed($this->getPath());
         $blade = new Blade($this->templatePath, $this->cachPath);

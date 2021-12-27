@@ -48,17 +48,26 @@ class GenerateCRUDApiCommand extends GenerateApiCommand
         $action = $this->getAction();
         $listInputAction = $this->getInputActions();
 
-        if(count($listInputAction) <= 0 || is_null($action))
+        if(is_null($action))
         {
-            $actions = array_diff($actions, array("Custom"));
+            if (count($listInputAction) <= 0 )
+            {
+                $actions = array_diff($actions, array("Custom"));
+            }
+            else{
+                $actions = $listInputAction;
+            }
         }
         else
         {
-            if(!is_null($action))
+            if (count($listInputAction) <= 0 )
             {
-                $listInputAction = $listInputAction + [$action];
+                $actions = [$action]; 
             }
-            $actions = array_unique($listInputAction, SORT_REGULAR);
+            else{
+                $listInputAction = $listInputAction + [$action];
+                $actions = array_unique($listInputAction, SORT_REGULAR);
+            }
         }
         foreach ($modelNames as $modelName)
         {

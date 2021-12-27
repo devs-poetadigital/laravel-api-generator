@@ -14,7 +14,12 @@ class {{ $action_name }}{{ $model_name }}ResponseCollection extends DataTransfer
 
         $items = [];
         foreach($data as $srcItem) {
-            $destItem = is_object($srcItem) ? $srcItem->toArray() : (array) $srcItem;
+            if(is_object($srcItem)) {
+                if(method_exists($srcItem,"toArray")){
+                    $destItem = $srcItem->toArray();
+                }
+            }
+            $destItem = (array) $srcItem;
             array_push($items, $destItem);
         }
 

@@ -60,12 +60,9 @@ class GenerateServiceHandler extends GenerateApiHandler
         {
             $sharePath = $this->pathServices.'Share/';
             createFileIfNeed($sharePath);
-            if(!fileExists($sharePath.'SearchService.php'))
-            {
-                $searchService = "SearchService";
-                $content = $blade->make($searchService, $model->toArray())->render();
-                $this->exportFile($content,$sharePath.'SearchService.php');
-            }
+            $searchService = "SearchService";
+            $content = $blade->make($searchService, $model->toArray())->render();
+            $this->exportFile($content,$sharePath.'SearchService.php');
         }
     }
 

@@ -17,7 +17,7 @@ class {{ $action_name }}{{ $model_name }}Service
         select * from (
             select *
             from {{ strtolower($table_name) }}
-        )
+        ) as tmp_{{ strtolower($table_name) }}
         ";
         
         $data = SearchService::handleRawQuery($queryStr, $requestDto, [], ['created_at','updated_at']);

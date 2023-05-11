@@ -44,12 +44,29 @@ class RemoveCRUDApiCommand extends GenerateApiCommand
     {
         $modelNames = $this->getModels();
         $action = $this->getAction();
+        $actions = $this->supportActions;
         $listInputAction = $this->getInputActions();
-        if(!is_null($action))
+        if(is_null($action))
         {
-            $listInputAction[] = $action;
+            if (count($listInputAction) <= 0 )
+            {
+                $actions = array_diff($actions, array("Custom"));
+            }
+            else{
+                $actions = $listInputAction;
+            }
         }
-        $actions = $listInputAction;
+        else
+        {
+            if (count($listInputAction) <= 0 )
+            {
+                $actions = [$action]; 
+            }
+            else{
+                $listInputAction = $listInputAction + [$action];
+                $actions = array_unique($listInputAction, SORT_REGULAR);
+            }
+        }
         
         foreach ($modelNames as $modelName)
         {
